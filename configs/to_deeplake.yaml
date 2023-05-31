@@ -1,0 +1,34 @@
+defaults:
+  - _self_
+  - hydra: default.yaml
+  - paths: default.yaml
+
+task_name: "to_deeplake"
+
+save_dir: /network/scratch/o/oussama.boussif/TSEumetsat/tsf_eumetsat
+context_dir: /network/scratch/g/ghait.boukachab/o/EUMETSAT/projected_zarr
+image_size: [64, 64]
+batch_size: 64
+elevation_path: /network/scratch/g/ghait.boukachab/o/EUMETSAT/elevation.npz
+ts_elevations:
+ - 2373
+ - 1385
+ - 0
+ - 156
+ - 471
+ - 491
+ts_coordinates:
+ - [28.3, 16.5]
+ - [22.7903, 5.5292]
+ - [51.968, 4.928]
+ - [48.713, 2.208]
+ - [42.816, 1.601]
+ - [46.8123, 6.9422]
+
+timeseries_paths:
+  - /network/scratch/g/ghait.boukachab/o/EUMETSAT/BSRN/PCCI_20082022_IZA
+  - /network/scratch/g/ghait.boukachab/o/EUMETSAT/BSRN/PCCI_20082022_TAM
+  - /network/scratch/g/ghait.boukachab/o/EUMETSAT/BSRN/PCCI_20082022_CAB
+  - /network/scratch/g/ghait.boukachab/o/EUMETSAT/BSRN/PCCI_20082022_PAL
+  - /network/scratch/g/ghait.boukachab/o/EUMETSAT/BSRN/PCCI_20082022_CNR
+  - /network/scratch/g/ghait.boukachab/o/EUMETSAT/BSRN/PCCI_20082022_PAY

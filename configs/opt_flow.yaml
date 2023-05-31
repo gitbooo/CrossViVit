@@ -1,0 +1,22 @@
+defaults:
+  - _self_
+  - paths: default.yaml
+  - hydra: default.yaml
+
+task_name: "opt_flow"
+
+dataset_path: /network/scratch/o/oussama.boussif/TSEumetsat/tsf_eumetsat-64_64
+year: 2008_nonhrv
+batch_size: 16
+cpus: 6
+params:
+  tau: 0.3
+  theta: 0.5
+  nscales: 3
+  warps: 5
+  epsilon: 0.01
+  innnerIterations: 10
+  outerIterations: 2
+  scaleStep: 0.5
+  gamma: 0.1
+  medianFiltering: 5

@@ -1,0 +1,62 @@
+# @package _global_
+
+defaults:
+  - override /hydra/sweeper: orion
+
+optimized_metric: "val/mae"
+hydra:
+  # makes sure each multirun ends up in a unique folder
+  # the defaults can make overlapping folders
+  sweep:
+    dir: ${paths.log_dir}/${task_name}/multiruns
+    subdir: ${hydra.sweeper.experiment.name}/${hydra.sweeper.experiment.trial}
+
+  sweeper:
+    # default parametrization of the search space
+    params:
+      pl_module.optimizer.lr: loguniform(1e-8, 0.1)
+      pl_module.optimizer.weight_decay: loguniform(1e-10, 1)
+      pl_module.model.d_model: choices([128,256,512,1024,2048])
+      pl_module.model.d_ff: choices([1024,2048,4096])
+      pl_module.model.n_heads: choices([1,2,4,8,16])
+      pl_module.model.e_layers: choices([1,2,3,4,5])
+      pl_module.model.dropout: choices([0.01,0.05,0.1,0.2,0.25])
+      pl_module.model.factor: choices([2,5,10])
+
+
+
+      
+      trainer.max_epochs: fidelity(low=5, high=100, base=3)
+
+    experiment:
+      name: 'Crossformer_orion'
+      version: '2'
+
+    algorithm:
+      type: asha
+      config:
+        seed: ${seed}
+        num_rungs: 5 # number of "hierarchical trial families"
+        num_brackets: 1 # number of "independant sampling procedures"
+
+    worker:
+      n_workers: 1
+      max_broken: 10
+      max_trials: 100
+
+    storage:
+      type: legacy
+
+      database:
+        type: pickleddb
+        host: '${paths.log_dir}/${hydra.sweeper.experiment.name}/${hydra.sweeper.experiment.name}_2.pkl'
+
+logger:
+  wandb:
+    project: "Crossformer_orion"
+    group: ""
+
+datamodule:
+  batch_size: 4
+
+task_name: Crossformer_orion

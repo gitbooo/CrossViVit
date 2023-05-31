@@ -1,0 +1,24 @@
+defaults:
+  - _self_
+  - hydra: default.yaml
+  - paths: default.yaml
+
+task_name: "proj_to_WGS84"
+
+path_zarr: /network/scratch/g/ghait.boukachab/o/EUMETSAT/Updated/2008_nonhrv.zarr
+save_path: /network/scratch/g/ghait.boukachab/o/EUMETSAT/projected_zarr/2008_nonhrv.zarr
+chunks: 11
+
+resolution: [512, 512]
+lower_left_coords: [-21.34, 24.98]
+upper_right_coords: [19.53, 65.85]
+geostationary_proj_params:
+  proj: geos
+  lon_0: 9.5
+  h: 35785831
+  x_0: 0
+  y_0: 0
+  a: 6378169
+  rf: 295.488065897014
+  no_defs: null
+  type: crs

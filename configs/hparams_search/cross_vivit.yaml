@@ -1,0 +1,61 @@
+# @package _global_
+
+defaults:
+  - override /hydra/sweeper: orion
+
+optimized_metric: "val/mae"
+hydra:
+  # makes sure each multirun ends up in a unique folder
+  # the defaults can make overlapping folders
+  sweep:
+    dir: ${paths.log_dir}/${task_name}/multiruns
+    subdir: ${hydra.sweeper.experiment.name}/${hydra.sweeper.experiment.trial}
+
+  sweeper:
+    # default parametrization of the search space
+    params:
+      pl_module.optimizer.lr: loguniform(1e-8, 0.1)
+      pl_module.optimizer.weight_decay: loguniform(1e-10, 1)
+      pl_module.model.dim: choices([64,128,256,512])
+      pl_module.model.depth: choices([2,4,6,8,10,12,14,16])
+      pl_module.model.heads: choices([2,4,6,8,10,12,14,16])
+      pl_module.model.mlp_dim: choices([64,128,256,512])
+      pl_module.model.dim_head: choices([64,128,256,512])
+      pl_module.model.dropout: choices([0.,0.1,0.2,0.3,0.4,0.5])
+      pl_module.model.max_freq: choices([64,128,256,512])
+      pl_module.model.ctx_masking_ratio: choices([0.25,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95])
+      
+      trainer.max_epochs: fidelity(low=5, high=50, base=3)
+
+    experiment:
+      name: 'crossvivit_orion'
+      version: '2'
+
+    algorithm:
+      type: asha
+      config:
+        seed: ${seed}
+        num_rungs: 5 # number of "hierarchical trial families"
+        num_brackets: 1 # number of "independant sampling procedures"
+
+    worker:
+      n_workers: 1
+      max_broken: 10
+      max_trials: 100
+
+    storage:
+      type: legacy
+
+      database:
+        type: pickleddb
+        host: '${paths.log_dir}/${hydra.sweeper.experiment.name}/${hydra.sweeper.experiment.name}_2.pkl'
+
+logger:
+  wandb:
+    project: "crossvivit_orion"
+    group: ""
+
+datamodule:
+  batch_size: 4
+
+task_name: crossvivit_orion

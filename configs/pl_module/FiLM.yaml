@@ -1,0 +1,52 @@
+_target_: src.pl_modules.pl_baselines.TSForecastTask
+
+name: FiLM
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 0.0016
+  weight_decay: 0.05
+  betas: [0.9, 0.95]
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  _partial_: true
+  mode: min
+  factor: 0.5
+  patience: 10
+
+model:
+  _target_: src.models.FiLM.Model
+  enc_in: 10 # Input size of encoder
+  seq_len: 48 # Length of input sequence
+  label_len: 24 # Length of label sequence
+  pred_len: 48 # Length of prediction sequence
+  output_attention: False # Whether to output attention in the encoder
+  e_layers: 3 # Number of encoder layers
+  ratio: 0.5 # Ratio of attention heads
+
+metrics:
+  train:
+    rmse:
+      _target_: torchmetrics.MeanSquaredError
+      squared: False
+    mae:
+      _target_: torchmetrics.MeanAbsoluteError
+  val:
+    rmse:
+      _target_: torchmetrics.MeanSquaredError
+      squared: False
+    mae:
+      _target_: torchmetrics.MeanAbsoluteError
+criterion: 
+  _target_: torch.nn.MSELoss
+monitor: val/rmse
+
+seq_len: 48
+label_len: 24
+pred_len: 48
+padding: 0
+inverse_scaling: False
+output_attention: False
+scaler: None
+  

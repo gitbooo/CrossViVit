@@ -1,0 +1,27 @@
+_target_: src.datamodules.tscontext_datamodule.TSContextDataModule
+dataset:
+  data_dir: ${paths.data_dir}
+  stats_path: ${paths.stats_path}
+  context_channels: null
+  optflow_channels: null
+  ts_channels: ['GHI', 'DIF [W/m**2]', 'DIR [W/m**2]', 'PoPoPoPo [hPa]', 'dhi', 'dni', 'ghi']
+  ts_target_channels: ['GHI']
+  years:
+    train: ["2008_nonhrv", "2009_nonhrv", "2010_nonhrv", "2011_nonhrv", "2012_nonhrv", "2013_nonhrv", "2014_nonhrv", "2015_nonhrv", "2016_nonhrv"]
+    val: ["2017_nonhrv", "2018_nonhrv", "2019_nonhrv"]
+    test: ["2020_nonhrv", "2021_nonhrv", "2022_nonhrv"]
+  stations:
+    train: ["PCCI_20082022_CAB", "PCCI_20082022_CNR", "PCCI_20082022_PAL"]
+    val: ["PCCI_20082022_PAY"]
+    test: ["PCCI_20082022_IZA"]
+  image_size: null
+  crop: null
+  seq_len: 48
+  label_len: 0
+  pred_len: 48
+  use_target: True
+
+# Dataloader specific
+batch_size: 8
+num_workers: 4
+pin_memory: False

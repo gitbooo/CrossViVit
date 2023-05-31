@@ -1,0 +1,25 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /datamodule: forecast_datamodule.yaml
+  - override /pl_module: LightTS.yaml #FiLM.yaml, Pyraformer.yaml, PatchTST.yaml, Nonstationary_Transformer.yaml, TimesNet.yaml, Reformer.yaml, MICN.yaml, LightTS.yaml, FEDformer.yaml, ETSformer.yaml, DLinear.yaml, Transformer.yaml, Autoformer.yaml
+  - override /trainer: default.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+# NEED TO DEBUG THIS: Pyraformer.yaml, Nonstationary_Transformer.yaml, MICN.yaml ETSformer.yaml
+# ADAPT pl.module: Reformer.yaml, 
+
+seed: 42
+
+
+trainer:
+  max_epochs: 100
+
+
+logger:
+  wandb:
+    group: "informer"

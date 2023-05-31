@@ -1,0 +1,59 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /datamodule: tscontext_datamodule.yaml
+  - override /pl_module: cross_vivit_bis_quantile_mask.yaml
+  - override /trainer: default.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+seed: 42
+
+datamodule:
+  dataset:
+    context_channels: [IR_039, IR_087, IR_108, VIS006, VIS008, WV_062, WV_073]
+    optflow_channels: [IR_039_vx, IR_039_vy, IR_087_vx, IR_087_vy, IR_108_vx, IR_108_vy, WV_062_vx, WV_062_vy, WV_073_vx, WV_073_vy]
+    image_size: null
+    crop: null
+  batch_size: 32
+
+trainer:
+  max_epochs: 100
+
+
+pl_module:
+  use_dp: False
+  model:
+    patch_size: [8, 8]
+    image_size: [64, 64]
+    ctx_channels: 18
+    ts_channels: 8
+    use_rotary: True
+    use_glu: True
+    freq_type: lucidrains
+    max_freq: 128
+    use_self_attention: True
+    ctx_masking_ratio: 0.85
+    ts_masking_ratio: 0
+    dim: 256
+    depth: 12
+    heads: 8
+    mlp_ratio: 1
+    dim_head: 64
+    dropout: 0.4
+    num_mlp_heads: 9
+
+    decoder_dim: 128
+    decoder_depth: 4
+    decoder_heads: 6
+    decoder_dim_head: 128
+
+  criterion:
+    _target_: src.losses.quantile_loss.QuantileLossMulti
+logger:
+  wandb:
+    group: "cvm_quantile_mask"
