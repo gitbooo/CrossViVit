@@ -12,13 +12,25 @@
 
 ## Description
 
-This is the official repository to the paper "What if We Enrich *day-ahead* Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?" by **Oussama Boussif**\*, **Ghait Boukachab**\*, **Dan Assouline**\*, Stefano Massaroli, Tianle Yuan and professors Loubna Benabbou and Yoshua Bengio.
+This is the official repository to the paper ["What if We Enrich *day-ahead* Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?"](https://arxiv.org/abs/2306.01112) by **Oussama Boussif**\*, **Ghait Boukachab**\*, **Dan Assouline**\*, Stefano Massaroli, Tianle Yuan and professors Loubna Benabbou and Yoshua Bengio.
 
 (* equal contribution)
 
 In this paper, we present a deep learning framework, [CrossViVit model](https://github.com/gitbooo/TSF_context_Eumetsat/blob/neurips_2023/src/models/cross_vivit_bis.py),  which leverages the spatio-temporal context (e.g. satellite data) to improve the forecasting of solar irradiance at a particular meteorological station. In particular, CrossViViT exhibits zero-shot capabilities, generalizing well to unobserved solar stations.
 
 ![My Image](CrossViViT_fig.png)
+
+## Citation
+If you use this codebase, or otherwise found our work valuable, please cite CrossViVit
+
+```
+@article{boussif2023enrich,
+  title   = {What if We Enrich day-ahead Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?},
+  author  = {Oussama Boussif and Ghait Boukachab and Dan Assouline and Stefano Massaroli and Tianle Yuan and Loubna Benabbou and Yoshua Bengio},
+  year    = {2023},
+  journal = {arXiv preprint arXiv: 2306.01112}
+}
+```
 
 ## Installation
 
