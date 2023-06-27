@@ -42,7 +42,7 @@ https://github.com/gitbooo/CrossViVit.git
 cd CrossViVit
 
 # [OPTIONAL] create conda environment
-conda create -n myenv python=3.9
+conda create -n myenv python=3.10
 conda activate myenv
 
 # install pytorch according to instructions
