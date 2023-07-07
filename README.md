@@ -16,7 +16,7 @@ This is the official repository to the paper ["What if We Enrich *day-ahead* Sol
 
 (* equal contribution)
 
-In this paper, we present a deep learning framework, [CrossViVit model](https://github.com/gitbooo/TSF_context_Eumetsat/blob/neurips_2023/src/models/cross_vivit_bis.py),  which leverages the spatio-temporal context (e.g. satellite data) to improve the forecasting of solar irradiance at a particular meteorological station. In particular, CrossViViT exhibits zero-shot capabilities, generalizing well to unobserved solar stations.
+In this paper, we present a deep learning framework, [CrossViVit model](https://github.com/gitbooo/TSF_context_Eumetsat/blob/neurips_2023/src/models/cross_vivit_bis.py),  which leverages spatio-temporal context (e.g. satellite data) to improve the forecasting of solar irradiance at a particular meteorological station. In particular, CrossViViT exhibits zero-shot capabilities, generalizing well to unobserved solar stations.
 
 ![My Image](CrossViViT_fig.png)
 
