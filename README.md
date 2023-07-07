@@ -20,6 +20,10 @@ In this paper, we present a deep learning framework, [CrossViVit model](https://
 
 ![My Image](CrossViViT_fig.png)
 
+
+https://github.com/gitbooo/CrossViVit/assets/12047248/95fd4b65-ce89-47e8-b987-bb73744498ec
+
+
 ## Citation
 If you use this codebase, or otherwise found our work valuable, please cite CrossViVit
 
