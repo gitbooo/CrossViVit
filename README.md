@@ -35,7 +35,13 @@ If you use this codebase, or otherwise found our work valuable, please cite Cros
   journal = {arXiv preprint arXiv: 2306.01112}
 }
 ```
+## Dataset
+You can view the dataset [here](https://app.activeloop.ai/crossvivit/SunLake) and can you access it as follows:
+```python
+import deeplake
 
+ds = deeplake.load('hub://crossvivit/SunLake')
+```
 ## Installation
 
 #### Pip
