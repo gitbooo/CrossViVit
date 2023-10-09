@@ -57,48 +57,8 @@ metrics:
       _target_: torchmetrics.MeanAbsoluteError
     mape:
       _target_: torchmetrics.MeanAbsolutePercentageError
-    
-    aufec_low_2:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 2
-    aufec_low_3:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 3
-    aufec_low_4:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 4
-    aufec_low_5:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 5
-
-    aufec_high_2:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 2
-    aufec_high_3:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 3
-    aufec_high_4:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 4
-    aufec_high_5:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 5
+      epsilon: 1
+  
   val:
     rmse:
       _target_: torchmetrics.MeanSquaredError
@@ -107,48 +67,7 @@ metrics:
       _target_: torchmetrics.MeanAbsoluteError
     mape:
       _target_: torchmetrics.MeanAbsolutePercentageError
-    
-    aufec_low_2:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 2
-    aufec_low_3:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 3
-    aufec_low_4:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 4
-    aufec_low_5:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: low
-      cutoff_mode: 5
-
-    aufec_high_2:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 2
-    aufec_high_3:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 3
-    aufec_high_4:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 4
-    aufec_high_5:
-      _target_: src.metrics.aufec.AUFEC
-      dim: 1
-      mode: high
-      cutoff_mode: 5
+      epsilon: 1
 
 monitor: val/rmse
 use_dp: True

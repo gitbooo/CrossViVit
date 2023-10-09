@@ -30,12 +30,18 @@ metrics:
       squared: False
     mae:
       _target_: torchmetrics.MeanAbsoluteError
+    mape:
+      _target_: torchmetrics.MeanAbsolutePercentageError
+      epsilon: 1
   val:
     rmse:
       _target_: torchmetrics.MeanSquaredError
       squared: False
     mae:
       _target_: torchmetrics.MeanAbsoluteError
+    mape:
+      _target_: torchmetrics.MeanAbsolutePercentageError
+      epsilon: 1
 criterion: 
   _target_: torch.nn.MSELoss
 monitor: val/rmse
