@@ -15,6 +15,14 @@ defaults:
 
 seed: 42
 
+pl_module:
+  model:
+    enc_in: 10
+    seq_len: 48
+    label_len: 24
+    pred_len: 48
+    e_layers: 2
+    ratio: 0.4
 
 trainer:
   max_epochs: 100

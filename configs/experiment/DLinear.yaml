@@ -15,6 +15,13 @@ defaults:
 
 seed: 42
 
+pl_module:
+  model:
+    enc_in: 10
+    seq_len: 48
+    pred_len: 48
+    moving_avg: 25
+    individual: False
 
 trainer:
   max_epochs: 100

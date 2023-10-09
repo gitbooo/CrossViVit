@@ -15,6 +15,24 @@ defaults:
 
 seed: 42
 
+pl_module:
+  model:
+    enc_in: 10
+    dec_in: 10
+    c_out: 1
+    seq_len: 48
+    label_len: 24
+    pred_len: 48
+    moving_avg: 25
+    d_model: 512
+    n_heads: 8
+    e_layers: 3
+    d_layers: 2
+    d_ff: 2048
+    dropout: 0.05
+    version: fourier
+    mode_select: random
+    modes: 32
 
 trainer:
   max_epochs: 100

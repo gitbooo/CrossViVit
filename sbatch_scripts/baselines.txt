@@ -1,0 +1,7 @@
+Crossformer
+DLinear
+FEDformer
+FiLM
+Informer
+LightTS
+PatchTST
