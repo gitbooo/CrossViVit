@@ -15,6 +15,20 @@ defaults:
 
 seed: 42
 
+pl_module:
+  model:
+    enc_in: 10
+    c_out: 1
+    seq_len: 48
+    pred_len: 48
+    d_model: 1024
+    n_heads: 6
+    e_layers: 3
+    d_ff: 2048
+    factor: 10
+    dropout: 0.05
+    embed: timeF
+    activation: gelu
 
 trainer:
   max_epochs: 100

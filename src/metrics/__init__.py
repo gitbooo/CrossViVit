@@ -1,1 +1,1 @@
-from .mase import MeanAbsoluteScaledError
+from .mape import MeanAbsolutePercentageError

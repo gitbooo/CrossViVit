@@ -5,7 +5,7 @@
 
 defaults:
   - override /datamodule: tscontext_datamodule.yaml
-  - override /pl_module: cross_vivit_bis.yaml
+  - override /pl_module: cross_vivit.yaml
   - override /trainer: default.yaml
 
 # all parameters below will be merged with parameters from default configurations set above
@@ -32,7 +32,7 @@ pl_module:
     image_size: [64, 64]
     ctx_channels: 18
     ts_channels: 8
-    use_rotary: True
+    pe_type: rope
     use_glu: True
     freq_type: lucidrains
     max_freq: 128
@@ -56,4 +56,4 @@ pl_module:
     _target_: torch.nn.L1Loss
 logger:
   wandb:
-    group: "cross_vivit_bis"
+    group: "cross_vivit"

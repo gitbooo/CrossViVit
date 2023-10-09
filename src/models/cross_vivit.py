@@ -11,6 +11,7 @@ from einops.layers.torch import Rearrange
 from torch import einsum, nn
 
 from src.models.modules.attention_modules import *
+from src.models.modules.positional_encoding import PositionalEncoding2D
 
 
 class AxialRotaryEmbedding(nn.Module):
@@ -208,7 +209,6 @@ class CrossTransformer(nn.Module):
     ):
         super().__init__()
         self.image_size = image_size
-
         self.cross_layers = nn.ModuleList([])
 
         for _ in range(depth):
@@ -256,7 +256,6 @@ class CrossTransformer(nn.Module):
         attention_scores = {}
         for i in range(len(self.cross_layers)):
             cattn, cff = self.cross_layers[i]
-
             out, cattn_scores = cattn(src, src_pos_emb, tgt, tgt_pos_emb)
             attention_scores["cross_attention"] = cattn_scores
             tgt = out + tgt
@@ -265,7 +264,7 @@ class CrossTransformer(nn.Module):
         return tgt, attention_scores
 
 
-class RoCrossViViT_bis(nn.Module):
+class RoCrossViViT(nn.Module):
     def __init__(
         self,
         image_size: Union[List[int], Tuple[int]],
@@ -282,7 +281,7 @@ class RoCrossViViT_bis(nn.Module):
         dim_head: int = 64,
         dropout: float = 0.0,
         freq_type: str = "lucidrains",
-        use_rotary: bool = True,
+        pe_type: str = "rope",
         num_mlp_heads: int = 1,
         use_glu: bool = True,
         ctx_masking_ratio: float = 0.9,
@@ -297,6 +296,12 @@ class RoCrossViViT_bis(nn.Module):
         assert (
             ctx_masking_ratio >= 0 and ctx_masking_ratio < 1
         ), "ctx_masking_ratio must be in [0,1)"
+        assert pe_type in [
+            "rope",
+            "sine",
+            "learned",
+            None,
+        ], f"pe_type must be 'rope', 'sine', 'learned' or None but you provided {pe_type}"
         self.time_coords_encoder = time_coords_encoder
         self.ctx_channels = ctx_channels
         self.ts_channels = ts_channels
@@ -309,6 +314,7 @@ class RoCrossViViT_bis(nn.Module):
         self.ctx_masking_ratio = ctx_masking_ratio
         self.ts_masking_ratio = ts_masking_ratio
         self.num_mlp_heads = num_mlp_heads
+        self.pe_type = pe_type
 
         for i in range(2):
             ims = self.image_size[i]
@@ -318,6 +324,9 @@ class RoCrossViViT_bis(nn.Module):
             ), "Image dimensions must be divisible by the patch size."
 
         patch_dim = self.ctx_channels * self.patch_size[0] * self.patch_size[1]
+        num_patches = (self.image_size[0] // self.patch_size[0]) * (
+            self.image_size[1] // self.patch_size[1]
+        )
 
         self.to_patch_embedding = nn.Sequential(
             Rearrange(
@@ -337,10 +346,15 @@ class RoCrossViViT_bis(nn.Module):
             dim * mlp_ratio,
             image_size,
             dropout,
-            use_rotary,
+            pe_type == "rope",
             use_glu,
         )
-
+        if pe_type == "learned":
+            self.pe_ctx = nn.Parameter(torch.randn(1, num_patches, dim))
+            self.pe_ts = nn.Parameter(torch.randn(1, 1, dim))
+        elif pe_type == "sine":
+            self.pe_ctx = PositionalEncoding2D(dim)
+            self.pe_ts = PositionalEncoding2D(dim)
         self.mixer = CrossTransformer(
             dim,
             depth,
@@ -349,7 +363,7 @@ class RoCrossViViT_bis(nn.Module):
             dim * mlp_ratio,
             image_size,
             dropout,
-            use_rotary,
+            pe_type == "rope",
             use_glu,
         )
         self.ctx_mask_token = nn.Parameter(torch.zeros(1, 1, decoder_dim))
@@ -460,7 +474,12 @@ class RoCrossViViT_bis(nn.Module):
         tgt_pos_emb = self.enc_pos_emb(ts_coords)
 
         ctx = self.to_patch_embedding(ctx)  # BT, N, D
-
+        if self.pe_type == "learned":
+            ctx = ctx + self.pe_ctx
+        elif self.pe_type == "sine":
+            pe = self.pe_ctx(ctx_coords)
+            pe = rearrange(pe, "b h w c -> b (h w) c")
+            ctx = ctx + pe
         if self.ctx_masking_ratio > 0 and mask:
             p = self.ctx_masking_ratio * random.random()
             ctx, _, ids_restore, ids_keep = self.random_masking(ctx, p)
@@ -487,6 +506,12 @@ class RoCrossViViT_bis(nn.Module):
         latent_ts = self.ts_encoder(ts)
         latent_ts = rearrange(latent_ts, "b t c -> (b t) c").unsqueeze(1)
 
+        if self.pe_type == "learned":
+            latent_ts = latent_ts + self.pe_ts
+        elif self.pe_type == "sine":
+            pe = self.pe_ts(ts_coords)
+            pe = rearrange(pe, "b h w c -> b (h w) c")
+            latent_ts = latent_ts + pe
         latent_ts, cross_attention_scores = self.mixer(
             latent_ctx, latent_ts, src_enc_pos_emb, tgt_pos_emb
         )

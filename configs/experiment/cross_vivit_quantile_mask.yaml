@@ -5,7 +5,7 @@
 
 defaults:
   - override /datamodule: tscontext_datamodule.yaml
-  - override /pl_module: cross_vivit_bis_quantile_mask.yaml
+  - override /pl_module: cross_vivit_quantile_mask.yaml
   - override /trainer: default.yaml
 
 # all parameters below will be merged with parameters from default configurations set above

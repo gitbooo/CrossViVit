@@ -1,6 +1,6 @@
 <div align="center">
   
-# What if We Enrich *day-ahead* Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?
+# Improving day-ahead Solar Irradiance Time Series Forecasting by Leveraging Spatio-Temporal Context
 
 [![python](https://img.shields.io/badge/-Python_3.8_%7C_3.9_%7C_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
@@ -12,7 +12,7 @@
 
 ## Description
 
-This is the official repository to the paper ["What if We Enrich *day-ahead* Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?"](https://arxiv.org/abs/2306.01112) by **Oussama Boussif**\*, **Ghait Boukachab**\*, **Dan Assouline**\*, Stefano Massaroli, Tianle Yuan and professors Loubna Benabbou and Yoshua Bengio.
+This is the official repository to the paper ["Improving day-ahead Solar Irradiance Time Series Forecasting by Leveraging Spatio-Temporal Context"](https://arxiv.org/abs/2306.01112) by **Oussama Boussif**\*, **Ghait Boukachab**\*, **Dan Assouline**\*, Stefano Massaroli, Tianle Yuan and professors Loubna Benabbou and Yoshua Bengio.
 
 (* equal contribution)
 
@@ -61,6 +61,23 @@ conda activate myenv
 # install requirements
 pip install -r requirements.txt
 ```
+## Experiments
+To help the users reproduce our results, we released the sbatch scripts that we used. This scripts are suited for clusters with SLURM and everything should run without any errors. If you do encounter errors, then please open an issue !
+
+ - CrossViViT large (145M): ``sbatch_scripts/crossvivit_large_rope.sh``
+ - Multi-Quantile CrossViViT large (145.5M): ``sbatch_scripts/crossvivit_multiquantile_large.sh``
+ - Multi-Quantile CrossViViT small (78.8M): ``sbatch_scripts/crossvivit_multiquantile_small.sh``
+ - Time-Series baselines: Running ``sbatch_scripts/baselines.sh`` will launch an "array job" which effectively reads which baseline to run from ``sbatch_scripts/baselines.txt`` and schedules the jobs simultaneously.
+
+## Hyperparameter tuning:
+We use [orion](https://github.com/Epistimio/orion) to optimize hyperparameters and it's well suited for launching distributed hyperparameter optimization on clusters. It also integrates nicely with pytorch-lightning as well as hydra through their hydra plugin, so make sure to check their repo if you want more information !
+
+You can launch the hyperparameter optimization using the following command:
+```
+CUDA_VISIBLE_DEVICES=0 python main.py -m hparams_search=[replace_with_model_to_be_tuned] experiment=[replace_with_model_to_be_tuned] seed=42 resume=True
+```
+
+We attached a sbatch script for optimizing CrossViViT's hyperparameters that you can find here: ``sbatch_scripts/crossvivit_tuning.sh``
 
 ## Baselines
 
