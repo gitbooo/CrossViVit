@@ -12,7 +12,7 @@
 
 ## Description
 
-This is the official repository to the paper ["What if We Enrich *day-ahead* Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?"](https://arxiv.org/abs/2306.01112) by **Oussama Boussif**\*, **Ghait Boukachab**\*, **Dan Assouline**\*, Stefano Massaroli, Tianle Yuan and professors Loubna Benabbou and Yoshua Bengio.
+This is the official repository to the paper ["Improving day-ahead Solar Irradiance Time Series Forecasting by Leveraging Spatio-Temporal Context"](https://arxiv.org/abs/2306.01112) by **Oussama Boussif**\*, **Ghait Boukachab**\*, **Dan Assouline**\*, Stefano Massaroli, Tianle Yuan and professors Loubna Benabbou and Yoshua Bengio.
 
 (* equal contribution)
 
