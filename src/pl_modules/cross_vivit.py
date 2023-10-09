@@ -5,7 +5,7 @@ from torchmetrics import MeanMetric
 from . import ContextMixerModule
 
 
-class CrossViViT_bis(ContextMixerModule):
+class CrossViViT(ContextMixerModule):
     def __init__(
         self,
         model: torch.nn.Module,

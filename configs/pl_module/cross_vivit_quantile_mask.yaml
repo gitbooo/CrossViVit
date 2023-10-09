@@ -1,4 +1,4 @@
-_target_: src.pl_modules.cross_vivit_bis_quantile_mask.CrossViViTQuantileMask_bis
+_target_: src.pl_modules.cross_vivit_quantile_mask.CrossViViTQuantileMask
 
 name: cvm_bis_quantile_mask
 optimizer:
@@ -15,7 +15,7 @@ scheduler:
   max_iters: ${trainer.max_epochs}
 
 model:
-  _target_: src.models.cross_vivit_bis.RoCrossViViT_bis
+  _target_: src.models.cross_vivit.RoCrossViViT
   image_size: [64, 64]
   patch_size: [8, 8]
   use_rotary: True

@@ -1,6 +1,6 @@
-_target_: src.pl_modules.cross_vivit_bis.CrossViViT_bis
+_target_: src.pl_modules.cross_vivit.CrossViViT
 
-name: cross_vivit_bis
+name: cross_vivit
 optimizer:
   _target_: torch.optim.AdamW
   _partial_: true
@@ -15,10 +15,10 @@ scheduler:
   max_iters: ${trainer.max_epochs}
 
 model:
-  _target_: src.models.cross_vivit_bis.RoCrossViViT_bis
+  _target_: src.models.cross_vivit.RoCrossViViT
   image_size: [64, 64]
   patch_size: [8, 8]
-  use_rotary: True
+  pe_type: rope
   use_glu: True
   freq_type: lucidrains
   max_freq: 64
