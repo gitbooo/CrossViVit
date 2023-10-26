@@ -217,20 +217,19 @@ class TSContextDataset(Dataset):
                 ]
             self._optflow_channel_ids = sorted(self._optflow_channel_ids)
 
-        if self._ts_channel_ids is None:
-            if self.ts_channels is not None:
-                self._ts_channel_ids = [
-                    i
-                    for i, k in enumerate(timeseries_tensor.info["timeseries_channels"])
-                    for c in self.ts_channels
-                    if c == k
-                ]
-            else:
-                self._ts_channel_ids = [
-                    i
-                    for i, k in enumerate(timeseries_tensor.info["timeseries_channels"])
-                ]
-            self._ts_channel_ids = sorted(self._ts_channel_ids)
+        if self.ts_channels is not None:
+            self._ts_channel_ids = [
+                i
+                for i, k in enumerate(timeseries_tensor.info["timeseries_channels"])
+                for c in self.ts_channels
+                if c == k
+            ]
+        else:
+            self._ts_channel_ids = [
+                i
+                for i, k in enumerate(timeseries_tensor.info["timeseries_channels"])
+            ]
+        self._ts_channel_ids = sorted(self._ts_channel_ids)
 
         return (
             self._context_channel_ids,
@@ -239,19 +238,18 @@ class TSContextDataset(Dataset):
         )
 
     def get_target_channel_ids(self, ts_tensor):
-        if self._ts_target_channel_ids is None:
-            if self.ts_target_channels is not None:
-                self._ts_target_channel_ids = [
-                    i
-                    for i, k in enumerate(ts_tensor.info["timeseries_channels"])
-                    for c in self.ts_target_channels
-                    if c == k
-                ]
-            else:
-                self._ts_target_channel_ids = [
-                    i for i, k in enumerate(ts_tensor.info["timeseries_channels"])
-                ]
-            self._ts_target_channel_ids = sorted(self._ts_target_channel_ids)
+        if self.ts_target_channels is not None:
+            self._ts_target_channel_ids = [
+                i
+                for i, k in enumerate(ts_tensor.info["timeseries_channels"])
+                for c in self.ts_target_channels
+                if c == k
+            ]
+        else:
+            self._ts_target_channel_ids = [
+                i for i, k in enumerate(ts_tensor.info["timeseries_channels"])
+            ]
+        self._ts_target_channel_ids = sorted(self._ts_target_channel_ids)
         return self._ts_target_channel_ids
 
     def __len__(self) -> int:
