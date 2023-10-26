@@ -11,9 +11,9 @@ dataset:
     val: ["2017_nonhrv", "2018_nonhrv", "2019_nonhrv"]
     test: ["2020_nonhrv", "2021_nonhrv", "2022_nonhrv"]
   stations:
-    train: ["PCCI_20082022_CAB", "PCCI_20082022_CNR", "PCCI_20082022_PAL"]
+    train: ["PCCI_20082022_IZA", "PCCI_20082022_CNR", "PCCI_20082022_PAL"]
     val: ["PCCI_20082022_PAY"]
-    test: ["PCCI_20082022_IZA"]
+    test: ["PCCI_20082022_IZA", "PCCI_20082022_TAM"]
   image_size: null
   crop: null
   seq_len: 48
