@@ -28,8 +28,8 @@ https://github.com/gitbooo/CrossViVit/assets/12047248/95fd4b65-ce89-47e8-b987-bb
 If you use this codebase, or otherwise found our work valuable, please cite CrossViVit
 
 ```
-@article{boussif2023enrich,
-  title   = {What if We Enrich day-ahead Solar Irradiance Time Series Forecasting with Spatio-Temporal Context?},
+@article{boussif2023improving,
+  title   = {Improving day-ahead Solar Irradiance Time Series Forecasting by Leveraging Spatio-Temporal Context},
   author  = {Oussama Boussif and Ghait Boukachab and Dan Assouline and Stefano Massaroli and Tianle Yuan and Loubna Benabbou and Yoshua Bengio},
   year    = {2023},
   journal = {arXiv preprint arXiv: 2306.01112}
