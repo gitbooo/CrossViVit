@@ -4,8 +4,8 @@
 root_dir: ${oc.env:PROJECT_ROOT}
 
 # path to data directory
-data_dir: /network/scratch/g/ghait.boukachab/o/EUMETSAT/tsf_eumetsat_bis-64_64
-stats_path: /home/mila/o/oussama.boussif/TSF_context_Eumetsat/stats_multi.json
+data_dir: hub://crossvivit/SunLake
+stats_path: ${oc.env:PROJECT_ROOT}/stats_multi.json
 # path to logging directory
 log_dir: /home/mila/o/oussama.boussif/scratch/ts_context/logs
 # path to output directory, created dynamically by hydra
