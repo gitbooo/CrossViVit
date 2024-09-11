@@ -42,6 +42,13 @@ import deeplake
 
 ds = deeplake.load('hub://crossvivit/SunLake')
 ```
+If you wish to download it you can do the following:
+```python
+import deeplake
+
+ds = deeplake.load('hub://crossvivit/SunLake')
+local_dataset = ds.copy('/path/to/local/storage', num_workers=4)
+```
 ## Installation
 
 #### Pip
